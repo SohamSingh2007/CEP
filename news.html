@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cyber Security News</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+
+/* PAGE */
+
+body{
+padding:30px 6%;
+background:#f9f9f9;
+overflow-y:auto;
+}
+
+
+/* TITLE */
+
+.title{
+font-size:28px;
+margin-bottom:25px;
+font-weight:bold;
+}
+
+
+/* GRID */
+
+.news-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+
+/* CARD */
+
+.news-card{
+
+background:white;
+
+border-radius:15px;
+
+padding:18px;
+
+border:1px solid #eee;
+
+transition:0.3s;
+
+cursor:pointer;
+
+display:flex;
+
+flex-direction:column;
+
+height:380px;
+
+overflow:hidden;
+
+}
+
+.news-card:hover{
+transform:translateY(-5px);
+box-shadow:0px 5px 20px rgba(0,0,0,0.1);
+}
+
+
+/* IMAGE */
+
+.news-img{
+width:100%;
+height:150px;
+border-radius:10px;
+object-fit:cover;
+margin-bottom:10px;
+background:#ddd;
+}
+
+
+/* SOURCE + COUNTRY ROW */
+
+.meta{
+
+font-size:12px;
+
+color:#555;
+
+margin-bottom:6px;
+
+display:flex;
+
+justify-content:space-between;
+
+}
+
+
+/* TITLE */
+
+.news-title{
+font-size:16px;
+font-weight:bold;
+margin-bottom:6px;
+height:40px;
+overflow:hidden;
+}
+
+
+/* DESCRIPTION */
+
+.news-desc{
+
+color:#666;
+
+font-size:14px;
+
+line-height:1.5;
+
+display:-webkit-box;
+
+-webkit-line-clamp:4;
+
+-webkit-box-orient:vertical;
+
+overflow:hidden;
+
+margin-bottom:8px;
+
+}
+
+
+/* DATE */
+
+.news-date{
+font-size:12px;
+color:#888;
+margin-bottom:6px;
+}
+
+
+/* READ BUTTON */
+
+.read-more{
+
+margin-top:auto;
+
+color:#2b4eff;
+
+font-size:14px;
+
+font-weight:bold;
+
+}
+
+
+/* LOADING */
+
+.loading{
+text-align:center;
+padding:20px;
+color:gray;
+font-size:16px;
+}
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+<div class="title">
+Cyber Security News
+</div>
+
+
+<div id="newsContainer" class="news-container"></div>
+
+
+<div id="loading" class="loading">
+Loading news...
+</div>
+
+
+
+<script>
+
+
+let apiKey="pub_dce2386e55a3484485e704130d6d055d";
+
+let nextPage="";
+
+let loading=false;
+
+let shownNews=new Set();
+
+
+
+function loadNews(){
+
+if(loading) return;
+
+loading=true;
+
+
+let url=`https://newsdata.io/api/1/latest?apikey=${apiKey}&q=cybersecurity OR hacking OR cybercrime OR scam OR fraud OR malware&country=in,us,jp,cn,kr&language=en,hi&removeduplicate=1&size=10`;
+
+
+if(nextPage!=""){
+url+="&page="+nextPage;
+}
+
+
+fetch(url)
+
+.then(res=>res.json())
+
+.then(data=>{
+
+let container=document.getElementById("newsContainer");
+
+
+if(!data.results){
+
+document.getElementById("loading").innerHTML=
+"No more news available";
+
+loading=false;
+
+return;
+
+}
+
+
+
+data.results.forEach(news=>{
+
+
+if(shownNews.has(news.link)) return;
+
+shownNews.add(news.link);
+
+
+container.innerHTML+=`
+
+<div class="news-card" onclick="window.open('${news.link}')">
+
+<img class="news-img"
+src="${news.image_url || 'https://via.placeholder.com/400x200'}">
+
+
+<div class="meta">
+
+<span>${news.source_id || "News Source"}</span>
+
+<span>${news.country || "Global"}</span>
+
+</div>
+
+
+<div class="news-title">
+${news.title}
+</div>
+
+
+<div class="news-desc">
+${news.description || "Click to read full news"}
+</div>
+
+
+<div class="news-date">
+${news.pubDate.substring(0,10)}
+</div>
+
+
+<div class="read-more">
+Read Full News →
+</div>
+
+
+</div>
+
+`;
+
+});
+
+
+if(data.nextPage){
+
+nextPage=data.nextPage;
+
+document.getElementById("loading").innerHTML=
+"Scroll for more news";
+
+}
+else{
+
+document.getElementById("loading").innerHTML=
+"No more news available";
+
+window.onscroll=null;
+
+}
+
+
+loading=false;
+
+})
+
+.catch(()=>{
+
+document.getElementById("loading").innerHTML=
+"Failed to load news";
+
+loading=false;
+
+});
+
+}
+
+
+loadNews();
+
+
+window.onscroll=function(){
+
+if(window.innerHeight + window.scrollY >= document.body.offsetHeight-200){
+
+loadNews();
+
+}
+
+};
+
+
+</script>
+
+
+
+</body>
+</html>
