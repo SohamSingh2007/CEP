@@ -15,7 +15,6 @@ body {
 }
 
 /* NAVBAR */
-
 nav {
     display: flex;
     justify-content: space-between;
@@ -31,7 +30,6 @@ nav {
 }
 
 /* LOGO */
-
 .logo {
     font-size: 22px;
     font-weight: 600;
@@ -40,7 +38,6 @@ nav {
 }
 
 /* MENU */
-
 .menu {
     display: flex;
     align-items: center;
@@ -65,15 +62,6 @@ nav {
 }
 
 /* CONTENT */
-
-/* .content {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 70px);
-} */
-
 .content {
     flex: 1;
     margin-top: 70px;
@@ -87,14 +75,7 @@ iframe {
     display: block;
 }
 
-/* iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-} */
-
 /* PROFILE */
-
 .profile-container {
     position: relative;
     margin-left: 20px;
@@ -110,7 +91,6 @@ iframe {
 }
 
 /* DROPDOWN */
-
 .profile-dropdown {
     position: absolute;
     right: 0;
@@ -137,7 +117,6 @@ iframe {
 
 
 /* MOBILE BAR */
-
 .mobile-bar {
     position: fixed;
     bottom: 0;
@@ -167,9 +146,7 @@ iframe {
 }
 
 /* MOBILE MODE */
-
 @media(max-width:768px) {
-
     nav{
         display: flex;
         flex-direction: row;
@@ -191,5 +168,4 @@ iframe {
         bottom: 65px;
         height: calc(100vh - 70px - 65px);
     }
-
 }
