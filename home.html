@@ -3,16 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>SafeZone - Cyber Awareness</title>
     <link rel="stylesheet" href="home.css" />
   </head>
+
   <body>
+    <!-- HERO SECTION -->
+
     <section class="hero">
       <div class="hero-content">
         <h1>
           Stay Safe in the Digital World with
-          <span style="color: #ffffff">Safe</span
-          ><span style="color: #2563eb">Zone</span>
+          <span style="color: white">Safe</span>
+          <span style="color: #2563eb">Zone</span>
         </h1>
 
         <p>
@@ -23,15 +26,15 @@
 
         <div class="hero-buttons">
           <a href="news.html" class="btn-primary">Explore Cyber News</a>
-          <a href="post.html" class="btn-outline">Read Incident</a>
+          <a href="post.html" class="btn-outline">Read Incidents</a>
         </div>
       </div>
 
       <div class="hero-image">
-        <img src="icon2.svg" alt="" />
+        <img src="icon2.svg" alt="cyber security" />
       </div>
     </section>
-    <!-- CYBER AWARENESS CARD -->
+
     <!-- CYBER AWARENESS SECTION -->
 
     <section class="awareness">
@@ -43,16 +46,13 @@
           <div class="card-img">
             <img src="otp.png" />
           </div>
-
           <div class="card-content">
             <h3>OTP Scam</h3>
-
             <p>
-              Scammers trick people into sharing their OTP to gain access to
-              bank accounts, wallets, or sensitive personal information.
+              Scammers trick people into sharing OTP codes to gain access to
+              bank accounts or personal information.
             </p>
-
-            <a href="#" class="card-btn"> Read More </a>
+            <a href="#" class="card-btn">Read More</a>
           </div>
         </div>
 
@@ -61,15 +61,12 @@
           <div class="card-img">
             <img src="phishing.png" />
           </div>
-
           <div class="card-content">
             <h3>Phishing Attack</h3>
-
             <p>
-              Fraudsters send fake emails, links, or websites pretending to be
-              banks or companies to steal login credentials or financial data.
+              Fraudsters send fake emails or links pretending to be trusted
+              companies to steal login credentials.
             </p>
-
             <a href="#" class="card-btn">Read More</a>
           </div>
         </div>
@@ -79,15 +76,12 @@
           <div class="card-img">
             <img src="upi.png" />
           </div>
-
           <div class="card-content">
             <h3>UPI Fraud</h3>
-
             <p>
               Attackers trick users into approving collect requests or sharing
-              payment details, leading to unauthorized UPI transactions.
+              payment details.
             </p>
-
             <a href="#" class="card-btn">Read More</a>
           </div>
         </div>
@@ -97,55 +91,297 @@
           <div class="card-img">
             <img src="qr.png" />
           </div>
-
           <div class="card-content">
             <h3>QR Code Scam</h3>
-
             <p>
-              Fake QR codes are shared by scammers to trick victims into sending
-              money instead of receiving payments.
+              Fake QR codes trick victims into sending money instead of
+              receiving payments.
             </p>
-
             <a href="#" class="card-btn">Read More</a>
           </div>
         </div>
 
-        <!-- ATM FRAUD -->
+        <!-- CARD / ATM FRAUD -->
         <div class="card">
           <div class="card-img">
             <img src="atm.png" />
           </div>
-
           <div class="card-content">
-            <h3>ATM Fraud</h3>
-
+            <h3>Card / ATM Fraud</h3>
             <p>
-              Criminals install skimming devices or spy cameras on ATM machines
-              to steal card details and PIN numbers.
+              Criminals steal card details through ATM skimmers, phishing or
+              data leaks and perform unauthorized transactions.
             </p>
-
             <a href="#" class="card-btn">Read More</a>
           </div>
         </div>
 
-        <!-- DEBIT CARD FRAUD -->
+        <!-- ONLINE BANKING FRAUD -->
         <div class="card">
           <div class="card-img">
-            <img src="card.png" />
+            <img src="banking.png" />
           </div>
-
           <div class="card-content">
-            <h3>Debit Card Fraud</h3>
-
+            <h3>Online Banking Fraud</h3>
             <p>
-              Unauthorized transactions occur when criminals obtain debit card
-              information through phishing or data breaches.
+              Attackers gain access to bank accounts using fake websites or
+              stolen login credentials.
             </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
 
+        <!-- IDENTITY THEFT -->
+        <div class="card">
+          <div class="card-img">
+            <img src="identity_theft.png" />
+          </div>
+          <div class="card-content">
+            <h3>Identity Theft</h3>
+            <p>
+              Criminals steal personal information such as Aadhaar, PAN or
+              passwords to impersonate victims.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- SOCIAL MEDIA HACKING -->
+        <div class="card">
+          <div class="card-img">
+            <img src="social_media.png" />
+          </div>
+          <div class="card-content">
+            <h3>Social Media Hacking</h3>
+            <p>
+              Hackers break into social accounts to spread scams or demand money
+              from contacts.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- EMAIL HACKING -->
+        <div class="card">
+          <div class="card-img">
+            <img src="email.png" />
+          </div>
+          <div class="card-content">
+            <h3>Email Hacking</h3>
+            <p>
+              Attackers gain access to email accounts and steal confidential
+              information.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- SIM SWAP FRAUD -->
+        <div class="card">
+          <div class="card-img">
+            <img src="sim_swap.png" />
+          </div>
+          <div class="card-content">
+            <h3>SIM Swap Fraud</h3>
+            <p>
+              Fraudsters transfer a victim's phone number to a new SIM to
+              intercept OTP messages.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- MALWARE -->
+        <div class="card">
+          <div class="card-img">
+            <img src="malware_virus.png" />
+          </div>
+          <div class="card-content">
+            <h3>Malware / Virus</h3>
+            <p>
+              Malicious software infects devices to steal data or damage
+              systems.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- FAKE SHOPPING -->
+        <div class="card">
+          <div class="card-img">
+            <img src="fake_shopping_sites.png" />
+          </div>
+          <div class="card-content">
+            <h3>Fake Shopping Sites</h3>
+            <p>
+              Fraud websites offer huge discounts and steal payment information.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- FAKE JOB -->
+        <div class="card">
+          <div class="card-img">
+            <img src="fake_jobs.png" />
+          </div>
+          <div class="card-content">
+            <h3>Fake Job Scam</h3>
+            <p>
+              Scammers offer fake jobs and ask for registration fees or personal
+              information.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- INVESTMENT SCAM -->
+        <div class="card">
+          <div class="card-img">
+            <img src="investment_scam.png" />
+          </div>
+          <div class="card-content">
+            <h3>Investment Scam</h3>
+            <p>
+              Fraudsters promise high profits in fake schemes or cryptocurrency
+              investments.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- LOTTERY -->
+        <div class="card">
+          <div class="card-img">
+            <img src="lottery_scam.png" />
+          </div>
+          <div class="card-content">
+            <h3>Lottery Scam</h3>
+            <p>
+              Victims receive messages claiming they won a lottery and are asked
+              to pay fees to claim the prize.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- CUSTOMER CARE -->
+        <div class="card">
+          <div class="card-img">
+            <img src="fake_customer_care.png" />
+          </div>
+          <div class="card-content">
+            <h3>Fake Customer Care</h3>
+            <p>
+              Fraudsters pretend to be support agents to trick people into
+              sharing OTP or payment details.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- LOAN APPS -->
+        <div class="card">
+          <div class="card-img">
+            <img src="fake_loan_apps.png" />
+          </div>
+          <div class="card-content">
+            <h3>Fake Loan Apps</h3>
+            <p>
+              Fake apps steal personal data and harass victims for illegal
+              payments.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- DEEPFAKE -->
+        <div class="card">
+          <div class="card-img">
+            <img src="deepfake fraud.png" />
+          </div>
+          <div class="card-content">
+            <h3>Deepfake Fraud</h3>
+            <p>
+              AI generated voice or video impersonates real people to trick
+              victims into sending money.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- WIFI HACKING -->
+        <div class="card">
+          <div class="card-img">
+            <img src="wifi.png" />
+          </div>
+          <div class="card-content">
+            <h3>Wi-Fi Hacking</h3>
+            <p>Attackers intercept data on unsecured public Wi-Fi networks.</p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- ONLINE GAMING -->
+        <div class="card">
+          <div class="card-img">
+            <img src="online_gaming_scam.png" />
+          </div>
+          <div class="card-content">
+            <h3>Online Gaming Fraud</h3>
+            <p>
+              Scammers trick gamers with fake rewards or tournament entries.
+            </p>
+            <a href="#" class="card-btn">Read More</a>
+          </div>
+        </div>
+
+        <!-- CYBERBULLYING -->
+        <div class="card">
+          <div class="card-img">
+            <img src="Cyberbullying.png" />
+          </div>
+          <div class="card-content">
+            <h3>Cyberbullying</h3>
+            <p>
+              Online harassment through social media, messages or gaming
+              platforms.
+            </p>
             <a href="#" class="card-btn">Read More</a>
           </div>
         </div>
       </div>
+      <div style="text-align: center; margin-top: 40px">
+        <button id="loadMoreBtn" class="card-btn">Show More</button>
+      </div>
     </section>
+
+    <script>
+      const cards = document.querySelectorAll(".card");
+      const btn = document.getElementById("loadMoreBtn");
+
+      let visibleCards = 3;
+
+      function updateCards() {
+        cards.forEach((card, index) => {
+          if (index < visibleCards) {
+            card.classList.remove("hidden");
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+
+        if (visibleCards >= cards.length) {
+          btn.style.display = "none";
+        }
+      }
+
+      updateCards();
+
+      btn.addEventListener("click", () => {
+        visibleCards += 3;
+        updateCards();
+      });
+    </script>
   </body>
 </html>

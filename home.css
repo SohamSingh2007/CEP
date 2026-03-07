@@ -5,6 +5,8 @@
     font-family: Poppins, sans-serif;
 }
 
+/* HERO */
+
 .hero {
     min-height: 100vh;
     display: flex;
@@ -18,6 +20,7 @@
 }
 
 /* LEFT CONTENT */
+
 .hero-content {
     max-width: 520px;
 }
@@ -35,6 +38,7 @@
 }
 
 /* BUTTONS */
+
 .hero-buttons {
     display: flex;
     gap: 20px;
@@ -69,9 +73,9 @@
     color: #111;
 }
 
-/* RIGHT SIDE */
+/* HERO IMAGE */
+
 .hero-image {
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -82,8 +86,10 @@
     max-width: 100%;
 }
 
-/* ---------- TABLET ---------- */
+/* TABLET */
+
 @media (max-width: 1024px) {
+
     .hero {
         padding: 60px 8%;
     }
@@ -95,51 +101,32 @@
     .hero-image img {
         width: 320px;
     }
-}
 
-/* SCROLLBAR STYLE */
-
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-::-webkit-scrollbar-track {
-    background: #020617;
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #03265b);
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #0d50a1);
-}
-
-/* ---------- MOBILE ---------- */
-@media (max-width:768px) {
-    .hero {
-        min-height: auto;
-        flex-direction: column;
-        align-items: flex-start;
-        text-align: center;
-        padding: 40px 8% 20px;
-        gap: 15px;
-    }
-
-    .hero-image {
-        order: -1;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .hero-image img {
+    ::-webkit-scrollbar {
         width: 100px;
     }
 
-    .hero-content {
-        max-width: 100%;
+}
+
+/* MOBILE HERO */
+
+@media (max-width:768px) {
+
+    .hero {
+        min-height: auto;
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 8% 20px;
+        gap: 20px;
+    }
+
+    .hero-image{
+        order: -1;
+        margin-bottom: 20px;
+    }
+
+    .hero-image img {
+        width: 120px;
     }
 
     .hero h1 {
@@ -159,6 +146,25 @@
     }
 }
 
+/* SCROLLBAR */
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #03265b);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #0d50a1);
+}
+
 /* SECTION */
 
 .awareness {
@@ -168,7 +174,8 @@
 
 .section-title {
     text-align: center;
-    font-size: 32px;
+    /* font-size: 32px; */
+    font-size: clamp(24px, 5vw, 32px);
     margin-bottom: 50px;
     color: white;
 }
@@ -177,8 +184,28 @@
 
 .card-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 70px;
+}
+
+/* TABLET GRID */
+
+@media (max-width:900px) {
+
+    .card-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+/* MOBILE GRID */
+
+@media (max-width:600px) {
+
+    .card-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
 }
 
 /* CARD */
@@ -230,8 +257,15 @@
     color: white;
     border-radius: 25px;
     text-decoration: none;
+    transition: 0.3s;
 }
 
 .card-btn:hover {
     background: #2563eb;
+}
+
+/* HIDDEN CARD */
+
+.card.hidden {
+    display: none;
 }
