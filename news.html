@@ -4,214 +4,46 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SafeZone: News</title>
-    <link rel="shortcut icon" href="logo.svg" type="image/x-icon">
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial;
-      }
-      body {
-        padding: 30px 6%;
-        background: #f4f6fb;
-        min-height: 100vh;
-      }
-
-      .filters {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-bottom: 25px;
-      }
-      .filter-btn {
-        padding: 8px 14px;
-        border-radius: 20px;
-        border: 1px solid #2b4eff;
-        background: white;
-        color: #2b4eff;
-        cursor: pointer;
-        font-size: 13px;
-        transition: 0.3s;
-      }
-      .filter-btn.active,
-      .filter-btn:hover {
-        background: #2b4eff;
-        color: white;
-      }
-
-      .news-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-      }
-
-      .news-card {
-        background: white;
-        border-radius: 15px;
-        padding: 15px;
-        border: 1px solid #eee;
-        display: flex;
-        flex-direction: column;
-        height: 400px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: 0.3s;
-        position: relative;
-      }
-      .news-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-      }
-
-      .badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: #ff3b3b;
-        color: white;
-        padding: 4px 8px;
-        font-size: 11px;
-        border-radius: 20px;
-      }
-
-      .news-img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        background: #ddd;
-      }
-
-      .meta {
-        font-size: 12px;
-        color: #555;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 6px;
-      }
-      .news-title {
-        font-size: 15px;
-        font-weight: bold;
-        margin-bottom: 6px;
-        height: 40px;
-        overflow: hidden;
-      }
-      .news-desc {
-        font-size: 13px;
-        color: #666;
-        line-height: 1.4;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-        line-clamp: 4;
-        overflow: hidden;
-        margin-bottom: 8px;
-      }
-      .news-date {
-        font-size: 12px;
-        color: #888;
-        margin-bottom: 6px;
-      }
-      .read-more {
-        margin-top: auto;
-        color: #2b4eff;
-        font-weight: bold;
-        font-size: 13px;
-      }
-      .loading {
-        text-align: center;
-        padding: 20px;
-        color: gray;
-        font-size: 15px;
-      }
-
-      .load-more-btn {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        background: #2b4eff;
-        color: white;
-        border: none;
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        font-size: 22px;
-        cursor: pointer;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        transition: 0.3s;
-        z-index: 999;
-      }
-      .load-more-btn:hover {
-        transform: scale(1.1);
-        background: #1f3edc;
-      }
-      .load-more-btn:disabled {
-        background: #aaa;
-        cursor: not-allowed;
-      }
-    </style>
+    <link rel="shortcut icon" href="logo.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="news.css">
   </head>
-
   <body>
-    <div class="filters">
-      <button class="filter-btn active" onclick="setCategory('all', this)">
-        All
-      </button>
-      <button class="filter-btn" onclick="setCategory('bank', this)">
-        Banking Scam
-      </button>
-      <button class="filter-btn" onclick="setCategory('ransomware', this)">
-        Ransomware
-      </button>
-      <button class="filter-btn" onclick="setCategory('phishing', this)">
-        Phishing
-      </button>
-      <button class="filter-btn" onclick="setCategory('breach', this)">
-        Data Breach
-      </button>
-    </div>
-
     <div id="newsContainer" class="news-container"></div>
     <div id="loading" class="loading">Loading cyber news...</div>
-    <!-- <button id="loadMoreBtn" class="load-more-btn" onclick="loadNews()">
-      ↓
-    </button> -->
-
     <script>
-    //   let apiKey = "pub_dce2386e55a3484485e704130d6d055d";
       let apiKey = "pub_53fdd1c113da41bea643302a42950768";
 
       let nextPage = "";
       let loading = false;
       let cooldown = false;
       let shownNews = new Set();
-      let currentCategory = "all";
 
       function getQuery() {
-        if (currentCategory === "bank")
-          return "bank fraud OR upi scam OR online banking fraud";
-        if (currentCategory === "ransomware") return "ransomware attack";
-        if (currentCategory === "phishing") return "phishing scam";
-        if (currentCategory === "breach") return "data breach";
         return "cyber attack OR hacking OR ransomware OR phishing OR bank fraud OR upi scam";
       }
 
-      function setCategory(cat, btn) {
-        currentCategory = cat;
-        nextPage = "";
-        shownNews.clear();
-        document.getElementById("newsContainer").innerHTML = "";
-        document
-          .querySelectorAll(".filter-btn")
-          .forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        loadNews();
+      function createCard(news) {
+        let img = news.image_url
+          ? news.image_url
+          : "https://via.placeholder.com/400x200?text=Cyber+News";
+
+        return `
+          <div class="news-card" onclick="window.open('${news.link}','_blank')">
+            <img class="news-img" src="${img}">
+            <div class="meta">
+              <span>${news.source_id || "Source"}</span>
+              <span>${news.country ? news.country.join(", ") : "Global"}</span>
+            </div>
+            <div class="news-title">${news.title}</div>
+            <div class="news-desc">
+              ${news.description || "Click to read full news"}
+            </div>
+            <div class="news-date">
+              ${news.pubDate ? news.pubDate.substring(0, 10) : ""}
+            </div>
+            <div class="read-more">Read Full News →</div>
+          </div>
+        `;
       }
 
       function loadNews() {
@@ -220,7 +52,7 @@
         loading = true;
         cooldown = true;
 
-        document.getElementById("loadMoreBtn").disabled = true;
+        document.getElementById("loading").innerHTML = "Loading cyber news...";
 
         let query = getQuery();
 
@@ -230,12 +62,13 @@
 
         fetch(url)
           .then((res) => res.json())
+
           .then((data) => {
             let container = document.getElementById("newsContainer");
 
             if (data.status === "error") {
               document.getElementById("loading").innerHTML =
-                "Rate limit hit. Please wait 1-2 minutes.";
+                "API limit reached. Please wait 1 minute.";
               loading = false;
               return;
             }
@@ -243,7 +76,6 @@
             if (!data.results || data.results.length === 0) {
               document.getElementById("loading").innerHTML =
                 "No more cyber news available";
-              document.getElementById("loadMoreBtn").style.display = "none";
               loading = false;
               return;
             }
@@ -254,39 +86,25 @@
 
               shownNews.add(news.link);
 
-              container.innerHTML += `
-<div class="news-card" onclick="window.open('${news.link}','_blank')">
-<div class="badge">Cyber Alert</div>
-<img class="news-img" src="${news.image_url || "https://via.placeholder.com/400x200"}">
-<div class="meta">
-<span>${news.source_id || "Source"}</span>
-<span>${news.country ? news.country.join(", ") : "Global"}</span>
-</div>
-<div class="news-title">${news.title}</div>
-<div class="news-desc">${news.description || "Click to read full news"}</div>
-<div class="news-date">${news.pubDate ? news.pubDate.substring(0, 10) : ""}</div>
-<div class="read-more">Read Full News →</div>
-</div>`;
+              container.insertAdjacentHTML("beforeend", createCard(news));
             });
 
             if (data.nextPage) {
               nextPage = data.nextPage;
-              document.getElementById("loadMoreBtn").style.display = "flex";
               document.getElementById("loading").innerHTML =
-                "Scroll or click ↓ for more news";
+                "Scroll down for more news";
             } else {
               document.getElementById("loading").innerHTML =
                 "No more cyber news available";
-              document.getElementById("loadMoreBtn").style.display = "none";
             }
 
             loading = false;
 
             setTimeout(() => {
               cooldown = false;
-              document.getElementById("loadMoreBtn").disabled = false;
-            }, 2000); // 2 second cooldown
+            }, 2000);
           })
+
           .catch(() => {
             document.getElementById("loading").innerHTML =
               "Network error or API limit reached";
@@ -302,7 +120,6 @@
           loadNews();
         }
       });
-
       loadNews();
     </script>
   </body>

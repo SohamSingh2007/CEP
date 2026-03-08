@@ -177,7 +177,6 @@ iframe {
     .content {
         top: 70px;
         bottom: 65px;
-        height: calc(100vh - 70px - 120px);
+        height: calc(100vh - 70px - 65px);
     }
-
 }
