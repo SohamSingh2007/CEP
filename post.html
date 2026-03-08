@@ -1,315 +1,582 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SafeZone Community</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>SafeZone Community</title>
 
-<style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Inter',sans-serif;
-}
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Inter;
+      }
 
-body{
-    background:#f6f7f8;
-    display:flex;
-    justify-content:center;
-}
+      body {
+        background: #000;
+        color: white;
+        display: flex;
+        justify-content: center;
+      }
 
-/* Layout */
-.wrapper{
-    width:1000px;
-    max-width:95%;
-    display:flex;
-    gap:20px;
-    margin-top:20px;
-}
+      .wrapper {
+        width: 1200px;
+        display: grid;
+        grid-template-columns: 280px 1fr 350px;
+      }
 
-/* Left Sidebar */
-.sidebar{
-    width:250px;
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    height:fit-content;
-}
+      .left {
+        padding: 20px;
+        border-right: 1px solid #222;
+      }
 
-.sidebar h3{
-    margin-bottom:10px;
-}
+      .profile-card {
+        background: #111;
+        border-radius: 18px;
+        padding: 20px;
+        text-align: center;
+      }
 
-.sidebar p{
-    font-size:14px;
-    color:gray;
-}
+      .profile-card img {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 3px solid #1d9bf0;
+        margin-bottom: 10px;
+      }
 
-/* Main Feed */
-.feed{
-    flex:1;
-}
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 10px;
+      }
 
-/* Create Post Box */
-.create-post{
-    background:white;
-    padding:15px;
-    border-radius:12px;
-    margin-bottom:15px;
-}
+      .stat span {
+        font-size: 12px;
+        color: #aaa;
+      }
 
-.create-post input,
-.create-post textarea,
-.create-post select{
-    width:100%;
-    padding:10px;
-    margin-bottom:10px;
-    border:1px solid #ddd;
-    border-radius:8px;
-    font-size:14px;
-}
+      .feed {
+        border-right: 1px solid #222;
+      }
 
-.create-post textarea{
-    resize:none;
-    height:80px;
-}
+      .create-post {
+        padding: 15px;
+        border-bottom: 1px solid #222;
+      }
 
-.create-post button{
-    background:#1d9bf0;
-    color:white;
-    border:none;
-    padding:8px 16px;
-    border-radius:20px;
-    cursor:pointer;
-    float:right;
-}
+      .create-post textarea {
+        width: 100%;
+        background: black;
+        border: none;
+        color: white;
+        resize: none;
+        height: 70px;
+        outline: none;
+      }
 
-.create-post button:hover{
-    background:#0c7cd5;
-}
+      .create-post button {
+        margin-top: 8px;
+        background: #1d9bf0;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 20px;
+        color: white;
+        cursor: pointer;
+      }
 
-/* Post Card */
-.post-card{
-    display:flex;
-    background:white;
-    margin-bottom:15px;
-    border-radius:12px;
-    overflow:hidden;
-}
+      .post {
+        padding: 15px;
+        border-bottom: 1px solid #222;
+      }
 
-/* Vote Section (Reddit Style) */
-.vote{
-    width:60px;
-    background:#f0f2f5;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    font-size:18px;
-}
+      .post-time {
+        font-size: 12px;
+        color: #777;
+      }
 
-.vote button{
-    background:none;
-    border:none;
-    cursor:pointer;
-    font-size:18px;
-}
+      .post-footer {
+        display: flex;
+        gap: 20px;
+        margin-top: 10px;
+        color: #aaa;
+      }
 
-.vote span{
-    font-size:14px;
-    margin:5px 0;
-}
+      .post-action {
+        cursor: pointer;
+      }
 
-/* Post Content */
-.post-content{
-    padding:15px;
-    flex:1;
-}
+      .right {
+        padding: 20px;
+      }
 
-.post-header{
-    font-size:13px;
-    color:gray;
-    margin-bottom:5px;
-}
+      .box {
+        background: #111;
+        border-radius: 18px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
 
-.username{
-    font-weight:600;
-    color:#000;
-}
+      .my-post {
+        background: #1a1a1a;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 8px;
+      }
 
-.tag{
-    background:#e8f5fe;
-    color:#1d9bf0;
-    padding:2px 8px;
-    border-radius:10px;
-    font-size:11px;
-    margin-left:8px;
-}
+      .btn {
+        background: #333;
+        border: none;
+        color: white;
+        padding: 4px 8px;
+        margin-left: 5px;
+        cursor: pointer;
+        border-radius: 6px;
+      }
 
-.post-text{
-    font-size:15px;
-    margin-top:5px;
-}
+      .trend {
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 6px;
+      }
 
-.actions{
-    margin-top:10px;
-    font-size:13px;
-    color:gray;
-}
+      .trend:hover {
+        background: #222;
+      }
 
-.actions span{
-    margin-right:15px;
-    cursor:pointer;
-}
+      .logout {
+        background: #ff4c4c;
+        border: none;
+        padding: 6px 12px;
+        margin-top: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
 
-/* Responsive */
-@media(max-width:768px){
-    .wrapper{
-        flex-direction:column;
-    }
-    .sidebar{
-        width:100%;
-    }
-}
+      /* Tablets */
 
-</style>
-</head>
-<body>
+      @media (max-width: 1000px) {
+        .wrapper {
+          grid-template-columns: 220px 1fr;
+        }
 
-<div class="wrapper">
+        .right {
+          grid-column: 1 / span 2;
+          border-top: 1px solid #222;
+        }
+      }
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h3>SafeZone Community</h3>
-        <p>Share your cyber fraud experiences and help others stay safe.</p>
-        <br>
-        <p><b>Popular Tags</b></p>
-        <p>#Phishing</p>
-        <p>#UPI_Fraud</p>
-        <p>#Instagram_Hack</p>
-        <p>#Bank_Scam</p>
-    </div>
+      /* Mobile */
 
-    <!-- Main Feed -->
-    <div class="feed">
+      @media (max-width: 700px) {
+        .wrapper {
+          grid-template-columns: 1fr;
+          width: 100%;
+        }
 
-        <!-- Create Post -->
+        .left {
+            display: none;
+        }
+
+        .feed {
+            border-right: none;
+        }
+
+        .right {
+            display: none;
+        }
+
+        .profile-card {
+          max-width: 350px;
+          margin: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="left">
+        <div class="profile-card">
+          <img id="profilePhoto" />
+
+          <h3 id="profileName"></h3>
+
+          <div id="profileEmail" style="color: #aaa; font-size: 13px"></div>
+
+          <div class="stats">
+            <div class="stat">
+              <div id="postCount">0</div>
+              <span>Posts</span>
+            </div>
+
+            <div class="stat">
+              <div id="likeCount">0</div>
+              <span>Likes</span>
+            </div>
+          </div>
+
+          <button class="logout" onclick="logout()">Logout</button>
+        </div>
+      </div>
+
+      <div class="feed">
         <div class="create-post">
-            <input type="text" id="username" placeholder="Your Name">
-            
-            <select id="tag">
-                <option value="Phishing">Phishing</option>
-                <option value="UPI Fraud">UPI Fraud</option>
-                <option value="Instagram Hack">Instagram Hack</option>
-                <option value="Bank Scam">Bank Scam</option>
-            </select>
+          <textarea
+            id="content"
+            placeholder="Share cyber incident..."
+          ></textarea>
 
-            <textarea id="content" placeholder="Describe your cyber incident..."></textarea>
-            <button onclick="addPost()">Post</button>
-            <div style="clear:both;"></div>
+          <button onclick="addPost()">Post</button>
         </div>
 
         <div id="posts"></div>
+      </div>
 
+      <div class="right">
+        <div class="box">
+          <h3>Your Posts</h3>
+
+          <div id="myPosts"></div>
+        </div>
+
+        <div class="box">
+          <h3>Trending</h3>
+
+          <div id="trending"></div>
+        </div>
+      </div>
     </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        onSnapshot,
+        doc,
+        updateDoc,
+        deleteDoc,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyA903l33klB5qT-RXX9l2Oyp7wTrd4IcRw",
+        authDomain: "safezone-39f81.firebaseapp.com",
+        projectId: "safezone-39f81",
+        storageBucket: "safezone-39f81.firebasestorage.app",
+        messagingSenderId: "685121648409",
+        appId: "1:685121648409:web:d0100443175d5208bdf788",
+      };
+
+      const app = initializeApp(firebaseConfig);
+
+      const db = getFirestore(app);
+
+      /* USER CHECK */
+
+      const user = JSON.parse(localStorage.getItem("safezoneUser"));
+
+      if (!user) {
+        window.location.href = "login&Signup.html";
+      }
+
+      const username = user.name;
+      const email = user.email;
+      const photo = user.photo;
+
+      /* PROFILE UI */
+
+      document.getElementById("profileName").innerText = username;
+      document.getElementById("profileEmail").innerText = email;
+      document.getElementById("profilePhoto").src = photo;
+
+      /* POSTS */
+
+      let posts = [];
+      let filterTag = null;
+
+      function formatDate(date) {
+        if (date && date.toDate) {
+          date = date.toDate();
+        }
+
+        const d = new Date(date);
+
+        return (
+          d.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          }) +
+          " • " +
+          d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        );
+      }
+
+      function extractTags(text) {
+        return text.match(/#\w+/g) || [];
+      }
+
+      window.addPost = async function () {
+        let content = document.getElementById("content").value.trim();
+
+        if (!content) {
+          alert("Write something");
+          return;
+        }
+
+        await addDoc(collection(db, "posts"), {
+          username,
+          email,
+          photo,
+          content,
+          date: new Date(),
+          likes: 0,
+          likedBy: [],
+        });
+
+        document.getElementById("content").value = "";
+      };
+
+      window.likePost = async function (id, likes, likedBy) {
+        const ref = doc(db, "posts", id);
+
+        if (likedBy.includes(email)) {
+          await updateDoc(ref, {
+            likes: likes - 1,
+            likedBy: likedBy.filter((e) => e !== email),
+          });
+        } else {
+          likedBy.push(email);
+
+          await updateDoc(ref, {
+            likes: likes + 1,
+            likedBy: likedBy,
+          });
+        }
+      };
+
+      window.deletePost = async function (id) {
+        await deleteDoc(doc(db, "posts", id));
+      };
+
+      window.editPost = async function (id) {
+        const post = posts.find((p) => p.id === id);
+
+        let newText = prompt("Edit post", post.content);
+
+        if (!newText) return;
+
+        await updateDoc(doc(db, "posts", id), {
+          content: newText,
+        });
+      };
+
+      window.sharePost = function (p) {
+        let date = p.date;
+
+        // Firestore Timestamp → Date
+        if (date && typeof date === "object" && date.toDate) {
+          date = date.toDate();
+        }
+
+        // String → Date
+        if (typeof date === "string") {
+          date = new Date(date);
+        }
+
+        // Fallback if still invalid
+        if (!date || isNaN(new Date(date))) {
+          date = new Date();
+        }
+
+        let text = `Posted by :- ${p.username}
+Date :- ${formatDate(date)}
+
+${p.content}
+
+Platform :- SafeZone  
+Explore more cyber incident updates at: https://sohamsingh2007.github.io/CEP/`;
+
+        navigator.clipboard.writeText(text);
+
+        alert("Copied to clipboard");
+      };
+
+      onSnapshot(collection(db, "posts"), (snapshot) => {
+        posts = [];
+
+        snapshot.forEach((d) => {
+          posts.push({ id: d.id, ...d.data() });
+        });
+
+        render();
+      });
+
+      function render() {
+        let feed = "";
+        let mine = "";
+        let tagCount = {};
+        let totalLikes = 0;
+
+        posts.forEach((p) => {
+          extractTags(p.content).forEach((t) => {
+            tagCount[t] = (tagCount[t] || 0) + 1;
+          });
+
+          if (filterTag && !p.content.includes(filterTag)) return;
+
+          feed += `
+
+<div class="post">
+
+<div style="display:flex;gap:10px;align-items:center">
+
+<img src="${p.photo}" style="width:35px;height:35px;border-radius:50%">
+
+<div>
+
+<b>${p.username}</b>
+
+<div class="post-time">${formatDate(p.date)}</div>
 
 </div>
 
-<script>
+</div>
 
-let posts = JSON.parse(localStorage.getItem("communityPosts")) || [];
+<div style="margin-top:6px">${p.content}</div>
 
-function savePosts(){
-    localStorage.setItem("communityPosts", JSON.stringify(posts));
-}
+<div class="post-footer">
 
-function formatDate(date){
-    return new Date(date).toLocaleString();
-}
+<div class="post-action"
+onclick='likePost("${p.id}",${p.likes},${JSON.stringify(p.likedBy || [])})'>
+❤️ ${p.likes}
+</div>
 
-function renderPosts(){
-    const container = document.getElementById("posts");
-    container.innerHTML = "";
+<div class="post-action"
+onclick='sharePost(${JSON.stringify(p)})'>
+🔗 Share
+</div>
 
-    posts.slice().reverse().forEach((post,index)=>{
+</div>
 
-        container.innerHTML += `
-        <div class="post-card">
-            <div class="vote">
-                <button onclick="upvote(${index})">⬆️</button>
-                <span>${post.votes}</span>
-                <button onclick="downvote(${index})">⬇️</button>
-            </div>
+</div>
+`;
 
-            <div class="post-content">
-                <div class="post-header">
-                    <span class="username">${post.username}</span> · 
-                    ${formatDate(post.date)}
-                    <span class="tag">${post.tag}</span>
-                </div>
+          if (p.email === email) {
+            mine += `
 
-                <div class="post-text">${post.content}</div>
+<div class="my-post" id="mypost-${p.id}">
 
-                <div class="actions">
-                    <span onclick="deletePost(${index})">Delete</span>
-                </div>
-            </div>
-        </div>
-        `;
-    });
-}
+<div class="post-content">${p.content}</div>
 
-function addPost(){
-    const username = document.getElementById("username").value.trim();
-    const content = document.getElementById("content").value.trim();
-    const tag = document.getElementById("tag").value;
+<div style="font-size:12px;color:#777">
+${formatDate(p.date)} • ❤️ ${p.likes}
+</div>
 
-    if(username==="" || content===""){
-        alert("Fill all fields");
-        return;
-    }
+<button class="btn" onclick='startEdit("${p.id}")'>Edit</button>
 
-    const newPost = {
-        username,
-        content,
-        tag,
-        date:new Date(),
-        votes:0
-    };
+<button class="btn" onclick='deletePost("${p.id}")'>Delete</button>
 
-    posts.push(newPost);
-    savePosts();
-    renderPosts();
+</div>
 
-    document.getElementById("username").value="";
-    document.getElementById("content").value="";
-}
+`;
+          }
 
-function upvote(index){
-    posts[index].votes++;
-    savePosts();
-    renderPosts();
-}
+          if (p.email === email) {
+            totalLikes += p.likes;
+          }
+        });
 
-function downvote(index){
-    posts[index].votes--;
-    savePosts();
-    renderPosts();
-}
+        document.getElementById("posts").innerHTML = feed;
+        document.getElementById("myPosts").innerHTML = mine;
+        document.getElementById("postCount").innerText =
+          mine.split("my-post").length - 1;
+        document.getElementById("likeCount").innerText = totalLikes;
 
-function deletePost(index){
-    posts.splice(index,1);
-    savePosts();
-    renderPosts();
-}
+        let trendHTML = "";
 
-renderPosts();
+        Object.entries(tagCount)
+          .filter((t) => t[1] >= 3)
+          .forEach((t) => {
+            trendHTML += `
+<div class="trend" onclick="filterTag='${t[0]}';render()">
+${t[0]} (${t[1]})
+</div>
+`;
+          });
 
-</script>
+        document.getElementById("trending").innerHTML = trendHTML;
+      }
 
-</body>
+      window.logout = function () {
+        localStorage.removeItem("safezoneUser");
+
+        window.location.href = "login&Signup.html";
+      };
+
+      window.startEdit = function (id) {
+        const post = posts.find((p) => p.id === id);
+
+        const box = document.getElementById("mypost-" + id);
+
+        box.innerHTML = `
+
+<textarea id="edit-${id}" 
+style="width:100%;height:70px;background:#111;color:white;border:1px solid #333;border-radius:6px;padding:6px;">
+${post.content}
+</textarea>
+
+<br><br>
+
+<button class="btn" onclick='saveEdit("${id}")'>Save</button>
+
+<button class="btn" onclick='cancelEdit("${id}")'>Cancel</button>
+
+`;
+      };
+
+      window.saveEdit = async function (id) {
+        const newText = document.getElementById("edit-" + id).value.trim();
+
+        if (!newText) {
+          alert("Post cannot be empty");
+          return;
+        }
+
+        await updateDoc(doc(db, "posts", id), {
+          content: newText,
+        });
+      };
+
+      window.cancelEdit = function (id) {
+        const post = posts.find((p) => p.id === id);
+
+        const box = document.getElementById("mypost-" + id);
+
+        box.innerHTML = `
+
+<div class="post-content">${post.content}</div>
+
+<div style="font-size:12px;color:#777">
+${formatDate(post.date)} • ❤️ ${post.likes}
+</div>
+
+<button class="btn" onclick='startEdit("${id}")'>Edit</button>
+
+<button class="btn" onclick='deletePost("${id}")'>Delete</button>
+
+`;
+      };
+    </script>
+  </body>
 </html>

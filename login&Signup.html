@@ -284,7 +284,7 @@
         projectId: "safezone-39f81",
         storageBucket: "safezone-39f81.firebasestorage.app",
         messagingSenderId: "685121648409",
-        appId: "1:685121648409:web:d0100443175d5208bdf788"
+        appId: "1:685121648409:web:d0100443175d5208bdf788",
       };
 
       const app = initializeApp(firebaseConfig);
@@ -317,7 +317,18 @@
         const password = document.getElementById("signupPassword").value;
 
         createUserWithEmailAndPassword(auth, email, password)
-          .then(() => {
+          .then((userCredential) => {
+            const user = userCredential.user;
+
+            localStorage.setItem(
+              "safezoneUser",
+              JSON.stringify({
+                name: document.getElementById("signupName").value,
+                email: user.email,
+                photo: "https://i.pravatar.cc/150",
+              }),
+            );
+
             alert("Account Created Successfully");
 
             window.location.href = "index.html";
@@ -338,7 +349,18 @@
         const password = document.getElementById("loginPassword").value;
 
         signInWithEmailAndPassword(auth, email, password)
-          .then(() => {
+          .then((userCredential) => {
+            const user = userCredential.user;
+
+            localStorage.setItem(
+              "safezoneUser",
+              JSON.stringify({
+                name: user.email.split("@")[0],
+                email: user.email,
+                photo: "https://i.pravatar.cc/150",
+              }),
+            );
+
             alert("Login Successful");
 
             window.location.href = "index.html";
@@ -353,7 +375,18 @@
 
       document.getElementById("googleLogin").addEventListener("click", () => {
         signInWithPopup(auth, provider)
-          .then(() => {
+          .then((result) => {
+            const user = result.user;
+
+            localStorage.setItem(
+              "safezoneUser",
+              JSON.stringify({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+              }),
+            );
+
             alert("Google Login Successful");
 
             window.location.href = "index.html";
