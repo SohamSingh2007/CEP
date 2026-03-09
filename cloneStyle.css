@@ -183,21 +183,3 @@ iframe {
         /* padding-bottom: 65px; */
     }
 }
-
-/* ACTIVE NAV ITEM */
-
-.navlink.active {
-    background: #4176e8;
-    color: white;
-}
-
-/* MOBILE ACTIVE */
-
-.mobile-item.active {
-    color: #4176e8;
-    font-weight: 600;
-}
-
-.mobile-item.active svg {
-    stroke: #4176e8;
-}

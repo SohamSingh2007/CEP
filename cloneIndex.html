@@ -14,17 +14,13 @@
     <!-- NAVBAR -->
     <nav>
       <!-- LOGO -->
-      <div class="logo" data-page="home.html" onclick="loadPage('home.html')">
+      <div class="logo" onclick="goHome()">
         <span style="color: #333">Safe</span>Zone
       </div>
 
       <div class="menu">
         <!-- NEWS -->
-        <a
-          class="navlink"
-          data-page="news.html"
-          onclick="loadPage('news.html')"
-        >
+        <a class="navlink" onclick="loadPage('news.html')">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -49,11 +45,7 @@
         </a>
 
         <!-- POST -->
-        <a
-          class="navlink"
-          data-page="post.html"
-          onclick="loadPage('post.html')"
-        >
+        <a class="navlink" onclick="loadPage('post.html')">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -80,11 +72,7 @@
         </a>
 
         <!-- CONTACT -->
-        <a
-          class="navlink"
-          data-page="contacts.html"
-          onclick="loadPage('contacts.html')"
-        >
+        <a class="navlink" onclick="loadPage('contacts.html')">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -130,11 +118,7 @@
     <!-- MOBILE BOTTOM BAR -->
 
     <div class="mobile-bar">
-      <div
-        class="mobile-item"
-        data-page="home.html"
-        onclick="loadPage('home.html')"
-      >
+      <div class="mobile-item" onclick="loadPage('home.html')">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -155,11 +139,7 @@
         <span>Home</span>
       </div>
 
-      <div
-        class="mobile-item"
-        data-page="news.html"
-        onclick="loadPage('news.html')"
-      >
+      <div class="mobile-item" onclick="loadPage('news.html')">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -183,11 +163,7 @@
         <span>News</span>
       </div>
 
-      <div
-        class="mobile-item"
-        data-page="post.html"
-        onclick="loadPage('post.html')"
-      >
+      <div class="mobile-item" onclick="loadPage('post.html')">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -213,11 +189,7 @@
         <span>Post</span>
       </div>
 
-      <div
-        class="mobile-item"
-        data-page="contacts.html"
-        onclick="loadPage('contacts.html')"
-      >
+      <div class="mobile-item" onclick="loadPage('contacts.html')">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -264,7 +236,7 @@
         let frame = document.getElementById("frame");
 
         frame.src = savedPage;
-        highlightActive(savedPage);
+
         /* force reload of iframe when page refresh happens */
         // frame.onload = function () {
         //   frame.contentWindow.location.reload();
@@ -277,7 +249,6 @@
         document.getElementById("frame").src = page;
 
         localStorage.setItem("currentPage", page);
-        highlightActive(page);
       }
 
       /* HOME */
@@ -312,24 +283,6 @@
 
       function logout() {
         alert("Logged out");
-      }
-
-      function highlightActive(page) {
-        document.querySelectorAll(".navlink").forEach((link) => {
-          link.classList.remove("active");
-
-          if (link.dataset.page === page) {
-            link.classList.add("active");
-          }
-        });
-
-        document.querySelectorAll(".mobile-item").forEach((item) => {
-          item.classList.remove("active");
-
-          if (item.dataset.page === page) {
-            item.classList.add("active");
-          }
-        });
       }
     </script>
   </body>
