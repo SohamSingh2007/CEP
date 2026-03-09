@@ -116,7 +116,7 @@
         min-height: auto;
         flex-direction: column;
         text-align: center;
-        padding: 40px 8% 20px;
+        padding: 40px 8% 60px 8%;
         gap: 20px;
     }
 
@@ -196,6 +196,10 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .hero {
+        padding: 60px 8%;
+    }
+
 }
 
 /* MOBILE GRID */
@@ -204,6 +208,10 @@
 
     .card-container {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .hero {
+        padding: 40px 8% 60px 8%;
     }
 
 }

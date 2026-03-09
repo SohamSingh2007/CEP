@@ -20,7 +20,7 @@
       }
 
       body {
-        background: #000;
+        background: linear-gradient(180deg, #000000, #07123b);
         color: white;
         display: flex;
         justify-content: center;
@@ -35,6 +35,9 @@
       .left {
         padding: 20px;
         border-right: 1px solid #222;
+        position: sticky;
+        top: 0;
+        height: 100vh;
       }
 
       .profile-card {
@@ -74,7 +77,7 @@
 
       .create-post textarea {
         width: 100%;
-        background: black;
+        background: transparent;
         border: none;
         color: white;
         resize: none;
@@ -110,7 +113,16 @@
       }
 
       .post-action {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         cursor: pointer;
+      }
+
+      .post-action svg {
+        width: 18px;
+        height: 18px;
+        display: block;
       }
 
       .right {
@@ -122,6 +134,11 @@
         border-radius: 18px;
         padding: 15px;
         margin-bottom: 20px;
+        overflow: hidden;
+      }
+
+      .box h3 {
+        margin-bottom: 10px;
       }
 
       .my-post {
@@ -129,6 +146,30 @@
         padding: 10px;
         border-radius: 10px;
         margin-bottom: 8px;
+      }
+
+      #myPost-container {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-top: 10px;
+        padding-right: 6px;
+      }
+
+      #myPost-container::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      #myPost-container::-webkit-scrollbar-track {
+        background: #000000;
+      }
+
+      #myPost-container::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 10px;
+      }
+
+      #myPost-container::-webkit-scrollbar-button {
+        display: none;
       }
 
       .btn {
@@ -160,6 +201,166 @@
         cursor: pointer;
       }
 
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #020617;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #03265b);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #0d50a1);
+      }
+
+      #toast {
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 12px 18px;
+        border-radius: 8px;
+        font-size: 14px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        z-index: 9999;
+        color: white;
+      }
+
+      #toast.show {
+        opacity: 1;
+        bottom: 40px;
+      }
+
+      /* types */
+
+      .toast-success {
+        background: #16a34a;
+      }
+
+      .toast-error {
+        background: #dc2626;
+      }
+
+      .toast-info {
+        background: #2563eb;
+      }
+
+      /* delete confirmation */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .modal-box {
+        width: 400px;
+        background: #111;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #333;
+        animation: pop 0.25s ease;
+      }
+
+      @keyframes pop {
+        from {
+          transform: scale(0.9);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-header h3 {
+        font-size: 18px;
+      }
+
+      .closeModal {
+        cursor: pointer;
+        color: #aaa;
+      }
+
+      .modal-text {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #bbb;
+      }
+
+      .modal-warning {
+        margin-top: 15px;
+        padding: 10px;
+        background: #2a1a1a;
+        border-left: 4px solid #ef4444;
+        color: #ffb4b4;
+        font-size: 13px;
+        border-radius: 6px;
+      }
+
+      .modal-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .cancelBtn {
+        background: #444;
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .deleteBtn {
+        background: #ef4444;
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      /* active filter */
+      .active-filter {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #1d9bf0;
+        padding: 6px 10px;
+        border-radius: 20px;
+        font-size: 13px;
+        margin-bottom: 10px;
+        width: fit-content;
+      }
+
+      .active-filter span {
+        cursor: pointer;
+        font-weight: bold;
+      }
+
       /* Tablets */
 
       @media (max-width: 1000px) {
@@ -182,20 +383,24 @@
         }
 
         .left {
-            display: none;
+          display: none;
         }
 
         .feed {
-            border-right: none;
+          border-right: none;
         }
 
         .right {
-            display: none;
+          display: none;
         }
 
         .profile-card {
           max-width: 350px;
           margin: auto;
+        }
+
+        ::-webkit-scrollbar {
+          display: none;
         }
       }
     </style>
@@ -244,13 +449,40 @@
         <div class="box">
           <h3>Your Posts</h3>
 
-          <div id="myPosts"></div>
+          <div id="myPost-container">
+            <div id="myPosts"></div>
+          </div>
         </div>
 
         <div class="box">
           <h3>Trending</h3>
 
           <div id="trending"></div>
+        </div>
+      </div>
+    </div>
+    <!-- tosted message -->
+    <div id="toast"></div>
+
+    <!-- delete confirmation -->
+    <div id="deleteModal" class="modal">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3>Delete Post?</h3>
+          <span class="closeModal" onclick="closeDeleteModal()">✖</span>
+        </div>
+
+        <p class="modal-text">
+          Are you sure you want to delete this post? You can't undo this action.
+        </p>
+
+        <div class="modal-warning">
+          ⚠ Warning This post will be permanently deleted.
+        </div>
+
+        <div class="modal-buttons">
+          <button class="cancelBtn" onclick="closeDeleteModal()">Cancel</button>
+          <button class="deleteBtn" id="confirmDelete">Delete Post</button>
         </div>
       </div>
     </div>
@@ -330,7 +562,7 @@
         let content = document.getElementById("content").value.trim();
 
         if (!content) {
-          alert("Write something");
+          showToast("Write something", "error");
           return;
         }
 
@@ -345,6 +577,7 @@
         });
 
         document.getElementById("content").value = "";
+        showToast("Post created successfully", "success");
       };
 
       window.likePost = async function (id, likes, likedBy) {
@@ -367,6 +600,7 @@
 
       window.deletePost = async function (id) {
         await deleteDoc(doc(db, "posts", id));
+        showToast("Post deleted successfully", "info");
       };
 
       window.editPost = async function (id) {
@@ -409,7 +643,7 @@ Explore more cyber incident updates at: https://sohamsingh2007.github.io/CEP/`;
 
         navigator.clipboard.writeText(text);
 
-        alert("Copied to clipboard");
+        showToast("Copied to clipboard", "info");
       };
 
       onSnapshot(collection(db, "posts"), (snapshot) => {
@@ -417,6 +651,13 @@ Explore more cyber incident updates at: https://sohamsingh2007.github.io/CEP/`;
 
         snapshot.forEach((d) => {
           posts.push({ id: d.id, ...d.data() });
+        });
+
+        // newest post first
+        posts.sort((a, b) => {
+          let dateA = a.date?.toDate ? a.date.toDate() : new Date(a.date);
+          let dateB = b.date?.toDate ? b.date.toDate() : new Date(b.date);
+          return dateB - dateA;
         });
 
         render();
@@ -427,6 +668,10 @@ Explore more cyber incident updates at: https://sohamsingh2007.github.io/CEP/`;
         let mine = "";
         let tagCount = {};
         let totalLikes = 0;
+
+        const heartOutline = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-heart"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>`;
+
+        const heartFilled = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#F91880" stroke="#F91880" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-solid icon-tabler-heart"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>`;
 
         posts.forEach((p) => {
           extractTags(p.content).forEach((t) => {
@@ -459,7 +704,7 @@ Explore more cyber incident updates at: https://sohamsingh2007.github.io/CEP/`;
 
 <div class="post-action"
 onclick='likePost("${p.id}",${p.likes},${JSON.stringify(p.likedBy || [])})'>
-❤️ ${p.likes}
+${(p.likedBy || []).includes(email) ? heartFilled : heartOutline} ${p.likes}
 </div>
 
 <div class="post-action"
@@ -485,7 +730,7 @@ ${formatDate(p.date)} • ❤️ ${p.likes}
 
 <button class="btn" onclick='startEdit("${p.id}")'>Edit</button>
 
-<button class="btn" onclick='deletePost("${p.id}")'>Delete</button>
+<button class="btn" onclick='openDeleteModal("${p.id}")'>Delete</button>
 
 </div>
 
@@ -504,12 +749,21 @@ ${formatDate(p.date)} • ❤️ ${p.likes}
         document.getElementById("likeCount").innerText = totalLikes;
 
         let trendHTML = "";
+        // ACTIVE FILTER SHOW
+        if (filterTag) {
+          trendHTML += `
+  <div class="active-filter">
+    ${filterTag}
+    <span onclick="clearFilter()">✕</span>
+  </div>
+  `;
+        }
 
         Object.entries(tagCount)
           .filter((t) => t[1] >= 3)
           .forEach((t) => {
             trendHTML += `
-<div class="trend" onclick="filterTag='${t[0]}';render()">
+<div class="trend" onclick="setTagFilter('${t[0]}')">
 ${t[0]} (${t[1]})
 </div>
 `;
@@ -549,7 +803,7 @@ ${post.content}
         const newText = document.getElementById("edit-" + id).value.trim();
 
         if (!newText) {
-          alert("Post cannot be empty");
+          showToast("Post cannot be empty", "error");
           return;
         }
 
@@ -573,9 +827,60 @@ ${formatDate(post.date)} • ❤️ ${post.likes}
 
 <button class="btn" onclick='startEdit("${id}")'>Edit</button>
 
-<button class="btn" onclick='deletePost("${id}")'>Delete</button>
-
+<button class="btn" onclick='openDeleteModal("${id}")'>Delete</button>
 `;
+      };
+
+      // toasted message
+      function showToast(message, type = "info") {
+        const toast = document.getElementById("toast");
+
+        toast.innerText = message;
+
+        toast.className = "";
+        toast.classList.add("show");
+
+        if (type === "success") toast.classList.add("toast-success");
+        else if (type === "error") toast.classList.add("toast-error");
+        else toast.classList.add("toast-info");
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      // delete confirmation modal
+      let deletePostId = null;
+
+      window.openDeleteModal = function (id) {
+        deletePostId = id;
+        document.getElementById("deleteModal").style.display = "flex";
+      };
+
+      window.closeDeleteModal = function () {
+        document.getElementById("deleteModal").style.display = "none";
+      };
+
+      document.getElementById("confirmDelete").onclick = async function () {
+        if (deletePostId) {
+          await deleteDoc(doc(db, "posts", deletePostId));
+          showToast("Post deleted", "error");
+        }
+
+        closeDeleteModal();
+      };
+
+      // filter by tag
+      window.setTagFilter = function (tag) {
+        filterTag = tag;
+        render();
+        showToast("Showing posts for " + tag, "info");
+      };
+
+      window.clearFilter = function () {
+        filterTag = null;
+        render();
+        showToast("Showing all posts", "info");
       };
     </script>
   </body>

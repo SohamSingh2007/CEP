@@ -70,8 +70,9 @@ nav {
     position: absolute;
     top: 70px;
     left: 0;
+    bottom: 0;
     width: 100%;
-    height: calc(100vh - 70px);
+    /* height: calc(100vh - 70px); */
 }
 
 iframe {
@@ -177,6 +178,8 @@ iframe {
     .content {
         top: 70px;
         bottom: 65px;
-        height: calc(100vh - 70px - 65px);
+        left: 0;
+        /* height: calc(100vh - 135px); */
+        /* padding-bottom: 65px; */
     }
 }
