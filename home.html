@@ -330,16 +330,93 @@
       </div>
     </section>
 
+    <section class="video-section">
+      <h2 class="section-title">Cyber Awareness Videos</h2>
+
+      <div class="slider-wrapper">
+        <div class="video-slider" id="videoSlider">
+          <div class="video-card">
+            <video controls src="videos/1st_video.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/6th_video.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/7th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/8th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/2nd_video.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/3ed_video.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/9th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/10th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/11th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/12th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/13th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/4th_video.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/5th_video.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/14th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/15th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/16th.mp4"></video>
+          </div>
+
+          <div class="video-card">
+            <video controls src="videos/17th.mp4"></video>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-dots" id="sliderDots"></div>
+    </section>
+
     <!-- FOOTER -->
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-about">
           <h3>SafeZone</h3>
           <p>
-            SafeZone is a cyber security awareness platform that helps
-            people understand online threats, stay safe from scams, and
-            share cyber crime incidents to protect others in the digital
-            world.
+            SafeZone is a cyber security awareness platform that helps people
+            understand online threats, stay safe from scams, and share cyber
+            crime incidents to protect others in the digital world.
           </p>
         </div>
 
@@ -398,6 +475,93 @@
         visibleCards += 3;
         updateCards();
       });
+    </script>
+    <script>
+      const slider = document.getElementById("videoSlider");
+      const videoCards = document.querySelectorAll(".video-card");
+      const videos = document.querySelectorAll(".video-card video");
+      const dotsContainer = document.getElementById("sliderDots");
+
+      let currentIndex = 0;
+      const cardWidth = 330;
+      const totalSlides = videoCards.length;
+
+      let autoScroll;
+
+      /* CREATE DOTS */
+
+      videoCards.forEach((_, i) => {
+        const dot = document.createElement("span");
+
+        if (i === 0) dot.classList.add("active");
+
+        dot.addEventListener("click", () => {
+          currentIndex = i;
+          updateSlider();
+        });
+
+        dotsContainer.appendChild(dot);
+      });
+
+      /* UPDATE SLIDER */
+
+      function updateSlider() {
+        slider.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+
+        document
+          .querySelectorAll(".slider-dots span")
+          .forEach((dot) => dot.classList.remove("active"));
+
+        dotsContainer.children[currentIndex].classList.add("active");
+      }
+
+      /* CHECK IF ANY VIDEO IS PLAYING */
+
+      function isAnyVideoPlaying() {
+        return [...videos].some((v) => !v.paused && !v.ended);
+      }
+
+      /* AUTO SCROLL */
+
+      function startScroll() {
+        autoScroll = setInterval(() => {
+          /* अगर कोई video play हो रहा है तो scroll मत करो */
+          if (isAnyVideoPlaying()) return;
+
+          currentIndex++;
+
+          if (currentIndex >= totalSlides) {
+            currentIndex = 0;
+          }
+
+          updateSlider();
+        }, 3000);
+      }
+
+      /* STOP SCROLL */
+
+      function stopScroll() {
+        clearInterval(autoScroll);
+      }
+
+      /* HOVER STOP */
+
+      slider.addEventListener("mouseenter", stopScroll);
+      slider.addEventListener("mouseleave", startScroll);
+
+      /* VIDEO EVENTS */
+
+      videos.forEach((video) => {
+        video.addEventListener("play", stopScroll);
+
+        video.addEventListener("pause", startScroll);
+
+        video.addEventListener("ended", startScroll);
+      });
+
+      /* INITIAL */
+
+      startScroll();
     </script>
   </body>
 </html>
