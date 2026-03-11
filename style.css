@@ -201,3 +201,11 @@ iframe {
 .mobile-item.active svg {
     stroke: #4176e8;
 }
+
+.profile-pic.active {
+    border: 2px solid #1d9bf0;
+}
+
+.mobile-profile.active {
+    border: 2px solid #1d9bf0;
+}

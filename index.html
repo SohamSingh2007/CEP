@@ -110,14 +110,9 @@
           <img
             src="profile1.jpeg"
             class="profile-pic"
-            onclick="toggleProfileMenu()"
+            id="navProfile"
+            onclick="loadPage('profile.html')"
           />
-
-          <div class="profile-dropdown" id="profileDropdown">
-            <a onclick="loadPage('profile.html')">👤 Profile</a>
-            <a onclick="loadPage('settings.html')">⚙ Settings</a>
-            <a onclick="logout()">🚪 Logout</a>
-          </div>
         </div>
       </div>
     </nav>
@@ -239,7 +234,7 @@
       </div>
 
       <div class="mobile-item" onclick="loadPage('profile.html')">
-        <img src="profile1.jpeg" class="mobile-profile" />
+        <img src="profile1.jpeg" class="mobile-profile" id="mobileProfile" />
 
         <span>Profile</span>
       </div>
@@ -269,6 +264,21 @@
         // frame.onload = function () {
         //   frame.contentWindow.location.reload();
         // };
+
+        /* LOAD USER PROFILE PHOTO */
+
+        let user = JSON.parse(localStorage.getItem("safezoneUser"));
+
+        let navProfile = document.getElementById("navProfile");
+        let mobileProfile = document.getElementById("mobileProfile");
+
+        if (user && user.photo) {
+          navProfile.src = user.photo;
+          mobileProfile.src = user.photo;
+        } else {
+          navProfile.src = "profile2.jpeg";
+          mobileProfile.src = "profile2.jpeg";
+        }
       };
 
       /* LOAD PAGE */
@@ -288,32 +298,6 @@
         localStorage.setItem("currentPage", "home.html");
       }
 
-      /* PROFILE DROPDOWN */
-
-      function toggleProfileMenu() {
-        let menu = document.getElementById("profileDropdown");
-
-        if (menu.style.display === "flex") {
-          menu.style.display = "none";
-        } else {
-          menu.style.display = "flex";
-        }
-      }
-
-      /* CLOSE DROPDOWN */
-
-      window.addEventListener("click", function (e) {
-        if (!e.target.matches(".profile-pic")) {
-          let dropdown = document.getElementById("profileDropdown");
-
-          if (dropdown) dropdown.style.display = "none";
-        }
-      });
-
-      function logout() {
-        alert("Logged out");
-      }
-
       function highlightActive(page) {
         document.querySelectorAll(".navlink").forEach((link) => {
           link.classList.remove("active");
@@ -330,7 +314,37 @@
             item.classList.add("active");
           }
         });
+
+        let navProfile = document.getElementById("navProfile");
+        let mobileProfile = document.getElementById("mobileProfile");
+
+        navProfile.classList.remove("active");
+        mobileProfile.classList.remove("active");
+
+        if (page === "profile.html") {
+          navProfile.classList.add("active");
+          mobileProfile.classList.add("active");
+        }
       }
+
+      /* REALTIME PROFILE UPDATE */
+
+      window.addEventListener("storage", function (event) {
+        if (event.key === "safezoneUser") {
+          let user = JSON.parse(event.newValue);
+
+          let navProfile = document.getElementById("navProfile");
+          let mobileProfile = document.getElementById("mobileProfile");
+
+          if (user && user.photo) {
+            navProfile.src = user.photo;
+            mobileProfile.src = user.photo;
+          } else {
+            navProfile.src = "profile2.jpeg";
+            mobileProfile.src = "profile2.jpeg";
+          }
+        }
+      });
     </script>
   </body>
 </html>

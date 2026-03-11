@@ -174,6 +174,84 @@
         font-size: 14px;
       }
 
+      /* SCROLLBAR */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #020617;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #03265b);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #0d50a1);
+      }
+
+      #toast {
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        min-width: 250px;
+        max-width: 320px;
+        padding: 14px 18px;
+        border-radius: 8px;
+        color: white;
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+        z-index: 9999;
+      }
+
+      #toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .toast-success {
+        background: #22c55e;
+      }
+
+      .toast-error {
+        background: #ef4444;
+      }
+
+      .toast-info {
+        background: #3b82f6;
+      }
+
+      /* password toggle */
+      .password-box {
+        position: relative;
+      }
+
+      .password-box input {
+        width: 100%;
+        padding-right: 40px;
+      }
+
+      .toggle-eye {
+        height: max-content;
+        position: absolute;
+        right: 12px;
+        top: 42%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #aaa;
+      }
+
+      .toggle-eye svg {
+        pointer-events: none;
+        align-self: center;
+        justify-self: center;
+      }
+
       /* Mobile */
 
       @media (max-width: 900px) {
@@ -237,7 +315,54 @@
 
           <input id="signupEmail" type="email" placeholder="Email" />
 
-          <input id="signupPassword" type="password" placeholder="Password" />
+          <div class="password-box">
+            <input id="signupPassword" type="password" placeholder="Password" />
+
+            <span
+              class="toggle-eye"
+              onclick="togglePassword('signupPassword', this)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="eye-open icon icon-tabler icons-tabler-outline icon-tabler-eye"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                <path
+                  d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+                />
+              </svg>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="eye-off icon icon-tabler icons-tabler-outline icon-tabler-eye-off"
+                style="display: none"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" />
+                <path
+                  d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87"
+                />
+                <path d="M3 3l18 18" />
+              </svg>
+            </span>
+          </div>
 
           <button type="submit">Sign Up</button>
 
@@ -252,7 +377,54 @@
         <form id="loginForm">
           <input id="loginEmail" type="email" placeholder="Email" />
 
-          <input id="loginPassword" type="password" placeholder="Password" />
+          <div class="password-box">
+            <input id="loginPassword" type="password" placeholder="Password" />
+
+            <span
+              class="toggle-eye"
+              onclick="togglePassword('loginPassword', this)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="eye-open icon icon-tabler icons-tabler-outline icon-tabler-eye"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+                <path
+                  d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+                />
+              </svg>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="eye-off icon icon-tabler icons-tabler-outline icon-tabler-eye-off"
+                style="display: none"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" />
+                <path
+                  d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87"
+                />
+                <path d="M3 3l18 18" />
+              </svg>
+            </span>
+          </div>
 
           <button type="submit">Login</button>
 
@@ -265,6 +437,7 @@
         </form>
       </div>
     </div>
+    <div id="toast"></div>
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -312,30 +485,65 @@
       document.getElementById("signupForm").addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const email = document.getElementById("signupEmail").value;
+        const name = document.getElementById("signupName").value.trim();
+        const email = document.getElementById("signupEmail").value.trim();
+        const password = document.getElementById("signupPassword").value.trim();
 
-        const password = document.getElementById("signupPassword").value;
+        /* EMPTY FIELD VALIDATION */
+
+        if (name === "") {
+          showToast("Please enter your full name", "error");
+          return;
+        }
+
+        if (email === "") {
+          showToast("Please enter your email address", "error");
+          return;
+        }
+
+        if (password === "") {
+          showToast("Please enter a password", "error");
+          return;
+        }
+
+        if (password.length < 6) {
+          showToast("Password must be at least 6 characters", "error");
+          return;
+        }
 
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             const user = userCredential.user;
+            const photoURL = "profile2.jpeg";
 
             localStorage.setItem(
               "safezoneUser",
               JSON.stringify({
-                name: document.getElementById("signupName").value,
+                name: name,
                 email: user.email,
-                photo: "https://i.pravatar.cc/150",
+                photo: photoURL,
               }),
             );
 
-            alert("Account Created Successfully");
+            showToast("Account created successfully", "success");
 
-            window.location.replace("home.html");
+            setTimeout(() => {
+              window.location.replace("profile.html");
+            }, 1200);
           })
 
           .catch((error) => {
-            alert(error.message);
+            let message = "Something went wrong";
+
+            if (error.code === "auth/email-already-in-use") {
+              message = "This email is already registered";
+            }
+
+            if (error.code === "auth/invalid-email") {
+              message = "Invalid email address";
+            }
+
+            showToast(message, "error");
           });
       });
 
@@ -344,9 +552,20 @@
       document.getElementById("loginForm").addEventListener("submit", (e) => {
         e.preventDefault();
 
-        const email = document.getElementById("loginEmail").value;
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
 
-        const password = document.getElementById("loginPassword").value;
+        /* EMPTY FIELD CHECK */
+
+        if (email === "") {
+          showToast("Please enter your email", "error");
+          return;
+        }
+
+        if (password === "") {
+          showToast("Please enter your password", "error");
+          return;
+        }
 
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
@@ -355,19 +574,31 @@
             localStorage.setItem(
               "safezoneUser",
               JSON.stringify({
-                name: user.email.split("@")[0],
+                name: user.displayName || user.email.split("@")[0],
                 email: user.email,
-                photo: "https://i.pravatar.cc/150",
+                photo: user.photoURL || "profile2.jpeg",
               }),
             );
 
-            alert("Login Successful");
+            showToast("Login successful", "success");
 
-            window.location.replace("home.html");
+            setTimeout(() => {
+              window.location.replace("profile.html");
+            }, 1200);
           })
 
           .catch((error) => {
-            alert(error.message);
+            let message = "Login failed";
+
+            if (error.code === "auth/user-not-found") {
+              message = "No account found with this email";
+            }
+
+            if (error.code === "auth/wrong-password") {
+              message = "Incorrect password";
+            }
+
+            showToast(message, "error");
           });
       });
 
@@ -387,13 +618,35 @@
               }),
             );
 
-            alert("Google Login Successful");
+            showToast("Signed in with Google successfully", "success");
 
-            window.location.replace("home.html");
+            window.location.replace("profile.html");
           })
 
           .catch((error) => {
-            alert(error.message);
+            let message = "Something went wrong. Please try again.";
+
+            if (error.code === "auth/email-already-in-use") {
+              message = "This email is already registered.";
+            }
+
+            if (error.code === "auth/invalid-email") {
+              message = "Please enter a valid email address.";
+            }
+
+            if (error.code === "auth/weak-password") {
+              message = "Password should be at least 6 characters.";
+            }
+
+            if (error.code === "auth/user-not-found") {
+              message = "No account found with this email.";
+            }
+
+            if (error.code === "auth/wrong-password") {
+              message = "Incorrect password.";
+            }
+
+            showToast(message, "error");
           });
       });
 
@@ -403,19 +656,73 @@
         const email = document.getElementById("loginEmail").value;
 
         if (email === "") {
-          alert("Enter your email first");
+          showToast("Enter your email first", "error");
 
           return;
         }
 
         sendPasswordResetEmail(auth, email)
           .then(() => {
-            alert("Password reset email sent");
+            showToast("Password reset email sent 📧", "info");
           })
 
           .catch((error) => {
-            alert(error.message);
+            let message = "Something went wrong. Please try again.";
+
+            if (error.code === "auth/email-already-in-use") {
+              message = "This email is already registered.";
+            }
+
+            if (error.code === "auth/invalid-email") {
+              message = "Please enter a valid email address.";
+            }
+
+            if (error.code === "auth/weak-password") {
+              message = "Password should be at least 6 characters.";
+            }
+
+            if (error.code === "auth/user-not-found") {
+              message = "No account found with this email.";
+            }
+
+            if (error.code === "auth/wrong-password") {
+              message = "Incorrect password.";
+            }
+
+            showToast(message, "error");
           });
+      };
+
+      function showToast(message, type = "info") {
+        const toast = document.getElementById("toast");
+
+        toast.innerText = message;
+        toast.className = "";
+        toast.classList.add("show", `toast-${type}`);
+
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      // password hide and show
+      window.togglePassword = function (inputId, icon) {
+        const input = document.getElementById(inputId);
+
+        const eyeOpen = icon.querySelector(".eye-open");
+        const eyeOff = icon.querySelector(".eye-off");
+
+        if (input.type === "password") {
+          input.type = "text";
+
+          eyeOpen.style.display = "none";
+          eyeOff.style.display = "block";
+        } else {
+          input.type = "password";
+
+          eyeOpen.style.display = "block";
+          eyeOff.style.display = "none";
+        }
       };
     </script>
   </body>
