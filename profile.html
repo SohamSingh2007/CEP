@@ -46,7 +46,6 @@
         <h3>Edit Profile</h3>
 
         <input id="editName" placeholder="Name" />
-        <input id="editPhoto" placeholder="Photo URL" />
 
         <div class="modal-buttons">
           <button class="cancelBtn" onclick="closeEdit()">Cancel</button>
@@ -279,31 +278,25 @@ ${(p.likedBy || []).includes(user.email) ? heartFilled : heartOutline}
 
       window.saveProfile = async function () {
         let newName = document.getElementById("editName").value;
-        let newPhoto =
-          document.getElementById("editPhoto").value || "profile2.jpeg";
 
         user.name = newName;
-        user.photo = newPhoto;
 
         localStorage.setItem("safezoneUser", JSON.stringify(user));
-        window.parent.postMessage("profileUpdated", "*");
-
-        /* UPDATE ALL USER POSTS */
 
         const q = query(
           collection(db, "posts"),
           where("email", "==", user.email),
         );
+
         const snapshot = await getDocs(q);
 
-        snapshot.forEach(async (postDoc) => {
+        for (const postDoc of snapshot.docs) {
           await updateDoc(doc(db, "posts", postDoc.id), {
             username: newName,
-            photo: newPhoto,
           });
-        });
+        }
 
-        location.reload();
+        closeEdit();
       };
 
       window.logout = function () {
