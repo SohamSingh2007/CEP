@@ -192,6 +192,16 @@
         background: #222;
       }
 
+      .hashtag {
+        color: #1d9bf0;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .hashtag:hover {
+        text-decoration: underline;
+      }
+
       .logout {
         background: #ff4c4c;
         border: none;
@@ -697,7 +707,7 @@ Explore more cyber incident updates at: https://sohamsingh2007.github.io/CEP/`;
 
 </div>
 
-<div style="margin-top:6px">${p.content}</div>
+<div style="margin-top:6px">${makeTagsClickable(p.content)}</div>
 
 <div class="post-footer">
 
@@ -881,6 +891,13 @@ ${formatDate(post.date)} • ❤️ ${post.likes}
         render();
         showToast("Showing all posts", "info");
       };
+
+      // clickable # tags in post content
+      function makeTagsClickable(text) {
+        return text.replace(/#\w+/g, (tag) => {
+          return `<span class="hashtag" onclick="setTagFilter('${tag}')">${tag}</span>`;
+        });
+      }
     </script>
   </body>
 </html>
