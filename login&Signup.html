@@ -451,6 +451,13 @@
         sendPasswordResetEmail,
       } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
       const firebaseConfig = {
         apiKey: "AIzaSyA903l33klB5qT-RXX9l2Oyp7wTrd4IcRw",
         authDomain: "safezone-39f81.firebaseapp.com",
@@ -461,60 +468,53 @@
       };
 
       const app = initializeApp(firebaseConfig);
-
       const auth = getAuth(app);
-
+      const db = getFirestore(app);
       const provider = new GoogleAuthProvider();
 
       /* UI TOGGLE */
 
       window.showSignup = function () {
         document.getElementById("signupForm").style.display = "block";
-
         document.getElementById("loginForm").style.display = "none";
       };
 
       window.showLogin = function () {
         document.getElementById("loginForm").style.display = "block";
-
         document.getElementById("signupForm").style.display = "none";
       };
 
       /* SIGNUP */
 
-      document.getElementById("signupForm").addEventListener("submit", (e) => {
-        e.preventDefault();
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-        const name = document.getElementById("signupName").value.trim();
-        const email = document.getElementById("signupEmail").value.trim();
-        const password = document.getElementById("signupPassword").value.trim();
+          const name = signupName.value.trim();
+          const email = signupEmail.value.trim();
+          const password = signupPassword.value.trim();
 
-        /* EMPTY FIELD VALIDATION */
+          if (!name || !email || !password) {
+            showToast("Fill all fields", "error");
+            return;
+          }
 
-        if (name === "") {
-          showToast("Please enter your full name", "error");
-          return;
-        }
-
-        if (email === "") {
-          showToast("Please enter your email address", "error");
-          return;
-        }
-
-        if (password === "") {
-          showToast("Please enter a password", "error");
-          return;
-        }
-
-        if (password.length < 6) {
-          showToast("Password must be at least 6 characters", "error");
-          return;
-        }
-
-        createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
+          try {
+            const userCredential = await createUserWithEmailAndPassword(
+              auth,
+              email,
+              password,
+            );
             const user = userCredential.user;
+
             const photoURL = "profile2.jpeg";
+
+            await setDoc(doc(db, "users", user.email), {
+              name: name,
+              email: user.email,
+              photo: photoURL,
+            });
 
             localStorage.setItem(
               "safezoneUser",
@@ -525,58 +525,66 @@
               }),
             );
 
-            showToast("Account created successfully", "success");
+            showToast("Account created", "success");
 
             setTimeout(() => {
               window.location.replace("profile.html");
             }, 1200);
-          })
-
-          .catch((error) => {
-            let message = "Something went wrong";
-
-            if (error.code === "auth/email-already-in-use") {
-              message = "This email is already registered";
-            }
-
-            if (error.code === "auth/invalid-email") {
-              message = "Invalid email address";
-            }
-
-            showToast(message, "error");
-          });
-      });
+          } catch (error) {
+            showToast(error.message, "error");
+          }
+        });
 
       /* LOGIN */
 
-      document.getElementById("loginForm").addEventListener("submit", (e) => {
-        e.preventDefault();
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
 
-        const email = document.getElementById("loginEmail").value.trim();
-        const password = document.getElementById("loginPassword").value.trim();
+          const email = loginEmail.value.trim();
+          const password = loginPassword.value.trim();
 
-        /* EMPTY FIELD CHECK */
+          if (!email || !password) {
+            showToast("Enter email and password", "error");
+            return;
+          }
 
-        if (email === "") {
-          showToast("Please enter your email", "error");
-          return;
-        }
-
-        if (password === "") {
-          showToast("Please enter your password", "error");
-          return;
-        }
-
-        signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
+          try {
+            const userCredential = await signInWithEmailAndPassword(
+              auth,
+              email,
+              password,
+            );
             const user = userCredential.user;
+
+            const userRef = doc(db, "users", user.email);
+            const snap = await getDoc(userRef);
+
+            let name;
+            let photo;
+
+            if (snap.exists()) {
+              const data = snap.data();
+              name = data.name;
+              photo = data.photo;
+            } else {
+              name = user.displayName || user.email.split("@")[0];
+              photo = user.photoURL || "profile2.jpeg";
+
+              await setDoc(userRef, {
+                name: name,
+                email: user.email,
+                photo: photo,
+              });
+            }
 
             localStorage.setItem(
               "safezoneUser",
               JSON.stringify({
-                name: user.displayName || user.email.split("@")[0],
+                name: name,
                 email: user.email,
-                photo: user.photoURL || "profile2.jpeg",
+                photo: photo,
               }),
             );
 
@@ -585,113 +593,76 @@
             setTimeout(() => {
               window.location.replace("profile.html");
             }, 1200);
-          })
-
-          .catch((error) => {
-            let message = "Login failed";
-
-            if (error.code === "auth/user-not-found") {
-              message = "No account found with this email";
-            }
-
-            if (error.code === "auth/wrong-password") {
-              message = "Incorrect password";
-            }
-
-            showToast(message, "error");
-          });
-      });
+          } catch (error) {
+            showToast("Login failed", "error");
+          }
+        });
 
       /* GOOGLE LOGIN */
 
-      document.getElementById("googleLogin").addEventListener("click", () => {
-        signInWithPopup(auth, provider)
-          .then((result) => {
-            const user = result.user;
+      googleLogin.addEventListener("click", async () => {
+        try {
+          const result = await signInWithPopup(auth, provider);
+          const user = result.user;
 
-            localStorage.setItem(
-              "safezoneUser",
-              JSON.stringify({
-                name: user.displayName,
-                email: user.email,
-                photo: user.photoURL,
-              }),
-            );
+          const userRef = doc(db, "users", user.email);
+          const snap = await getDoc(userRef);
 
-            showToast("Signed in with Google successfully", "success");
+          let name;
+          let photo;
 
-            window.location.replace("profile.html");
-          })
+          if (snap.exists()) {
+            const data = snap.data();
+            name = data.name;
+            photo = data.photo;
+          } else {
+            name = user.displayName;
+            photo = user.photoURL;
 
-          .catch((error) => {
-            let message = "Something went wrong. Please try again.";
+            await setDoc(userRef, {
+              name: name,
+              email: user.email,
+              photo: photo,
+            });
+          }
 
-            if (error.code === "auth/email-already-in-use") {
-              message = "This email is already registered.";
-            }
+          localStorage.setItem(
+            "safezoneUser",
+            JSON.stringify({
+              name: name,
+              email: user.email,
+              photo: photo,
+            }),
+          );
 
-            if (error.code === "auth/invalid-email") {
-              message = "Please enter a valid email address.";
-            }
+          showToast("Signed in with Google", "success");
 
-            if (error.code === "auth/weak-password") {
-              message = "Password should be at least 6 characters.";
-            }
-
-            if (error.code === "auth/user-not-found") {
-              message = "No account found with this email.";
-            }
-
-            if (error.code === "auth/wrong-password") {
-              message = "Incorrect password.";
-            }
-
-            showToast(message, "error");
-          });
+          window.location.replace("profile.html");
+        } catch (error) {
+          showToast("Google login failed", "error");
+        }
       });
 
       /* RESET PASSWORD */
 
       window.resetPassword = function () {
-        const email = document.getElementById("loginEmail").value;
+        const email = loginEmail.value;
 
-        if (email === "") {
-          showToast("Enter your email first", "error");
-
+        if (!email) {
+          showToast("Enter email first", "error");
           return;
         }
 
         sendPasswordResetEmail(auth, email)
           .then(() => {
-            showToast("Password reset email sent 📧", "info");
+            showToast("Password reset email sent", "info");
           })
-
-          .catch((error) => {
-            let message = "Something went wrong. Please try again.";
-
-            if (error.code === "auth/email-already-in-use") {
-              message = "This email is already registered.";
-            }
-
-            if (error.code === "auth/invalid-email") {
-              message = "Please enter a valid email address.";
-            }
-
-            if (error.code === "auth/weak-password") {
-              message = "Password should be at least 6 characters.";
-            }
-
-            if (error.code === "auth/user-not-found") {
-              message = "No account found with this email.";
-            }
-
-            if (error.code === "auth/wrong-password") {
-              message = "Incorrect password.";
-            }
-
-            showToast(message, "error");
+          .catch(() => {
+            showToast("Error sending email", "error");
           });
       };
+
+      /* TOAST */
 
       function showToast(message, type = "info") {
         const toast = document.getElementById("toast");
@@ -704,26 +675,17 @@
           toast.classList.remove("show");
         }, 3000);
       }
+      onSnapshot(doc(db, "users", user.email), (snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
 
-      // password hide and show
-      window.togglePassword = function (inputId, icon) {
-        const input = document.getElementById(inputId);
+          document.getElementById("username").innerText = data.name;
 
-        const eyeOpen = icon.querySelector(".eye-open");
-        const eyeOff = icon.querySelector(".eye-off");
+          user.name = data.name;
 
-        if (input.type === "password") {
-          input.type = "text";
-
-          eyeOpen.style.display = "none";
-          eyeOff.style.display = "block";
-        } else {
-          input.type = "password";
-
-          eyeOpen.style.display = "block";
-          eyeOff.style.display = "none";
+          localStorage.setItem("safezoneUser", JSON.stringify(user));
         }
-      };
+      });
     </script>
   </body>
 </html>

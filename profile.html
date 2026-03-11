@@ -90,6 +90,21 @@
 
       document.getElementById("username").innerText = user.name;
       document.getElementById("fullname").innerText = user.email;
+
+      const userRef = doc(db, "users", user.email);
+
+      onSnapshot(userRef, (snap) => {
+        if (snap.exists()) {
+          const data = snap.data();
+
+          document.getElementById("username").innerText = data.name;
+
+          user.name = data.name;
+
+          localStorage.setItem("safezoneUser", JSON.stringify(user));
+        }
+      });
+
       const profileImg = document.getElementById("profilePhoto");
 
       profileImg.src = user.photo ? user.photo : "profile2.jpeg";
@@ -277,12 +292,22 @@ ${(p.likedBy || []).includes(user.email) ? heartFilled : heartOutline}
       };
 
       window.saveProfile = async function () {
-        let newName = document.getElementById("editName").value;
+        let newName = document.getElementById("editName").value.trim();
+
+        if (newName === "") return;
 
         user.name = newName;
 
         localStorage.setItem("safezoneUser", JSON.stringify(user));
 
+        await updateDoc(doc(db, "users", user.email), {
+          name: newName,
+        });
+
+        // update name on profile UI
+        document.getElementById("username").innerText = newName;
+
+        // update posts username in firestore
         const q = query(
           collection(db, "posts"),
           where("email", "==", user.email),
@@ -301,7 +326,6 @@ ${(p.likedBy || []).includes(user.email) ? heartFilled : heartOutline}
 
       window.logout = function () {
         localStorage.removeItem("safezoneUser");
-
         window.location.href = "login&Signup.html";
       };
     </script>
